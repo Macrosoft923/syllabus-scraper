@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Syllabus Data</title>
+</head>
+
+<body>
+    <h1>Syllabus Data</h1>
+    <table>
+        <tr>
+            <th>科目名</th>
+            <th>分野</th>
+            <th>K-Number</th>
+        </tr>
+        {% for syllabus in syllabus_data %}
+        <tr>
+            <td>{{ syllabus['科目名'] }}</td>
+            <td>{{ syllabus['分野'] }}</td>
+            <td>{{ syllabus['K-Number'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
