@@ -2,25 +2,37 @@
 <html>
 
 <head>
-    <title>Syllabus Data</title>
+    <meta charset="UTF-8" />
+    <title>CSVファイルの読み込み</title>
 </head>
 
 <body>
-    <h1>Syllabus Data</h1>
-    <table>
-        <tr>
-            <th>科目名</th>
-            <th>分野</th>
-            <th>K-Number</th>
-        </tr>
-        {% for syllabus in syllabus_data %}
-        <tr>
-            <td>{{ syllabus['科目名'] }}</td>
-            <td>{{ syllabus['分野'] }}</td>
-            <td>{{ syllabus['K-Number'] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <table id="csvTable"></table>
+
+    <script>
+        function loadCSV(file) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var csvData = xhr.responseText;
+                    var lines = csvData.split("\n");
+                    var table = document.getElementById("csvTable");
+                    for (var i = 0; i < lines.length; i++) {
+                        var row = table.insertRow();
+                        var cells = lines[i].split(",");
+                        for (var j = 0; j < cells.length; j++) {
+                            var cell = row.insertCell();
+                            cell.textContent = cells[j];
+                        }
+                    }
+                }
+            };
+            xhr.open("GET", file, true);
+            xhr.send();
+        }
+
+        loadCSV("syllabus.csv");
+    </script>
 </body>
 
 </html>
